@@ -1,0 +1,187 @@
+PIPELINE EXIT CODE: 0
+PIPELINE STDOUT:
+
+PIPELINE REPORT
+run_id: 59b35cab-be69-45f5-a99f-88df52885dd5
+status: SUCCESS
+input_rows: 103
+valid_rows: 102
+rejected_rows: 1
+master_rows: 100
+exact_merged_rows: 2
+review_pairs: 17
+lineage_rows: 102
+duration_seconds: 0.041478
+schema_unexpected_columns: []
+checks: {'input_equals_valid_plus_rejected': True, 'valid_equals_lineage': True, 'master_ids_unique': True, 'all_passed': True}
+
+PIPELINE STDERR:
+Spreadsheet runtime warmup failed during python startup
+Traceback (most recent call last):
+  File "/tmp/tmp.QlpUkOUI9D/artifact_tool_v2-2.8.66/artifact_tool/patches/warm_spreadsheet_runtime_on_startup.py", line 26, in warm_spreadsheet_runtime_on_startup
+  File "/tmp/tmp.QlpUkOUI9D/artifact_tool_v2-2.8.66/artifact_tool/spreadsheet_warmup.py", line 785, in warm_spreadsheet_runtime
+  File "/tmp/tmp.QlpUkOUI9D/artifact_tool_v2-2.8.66/artifact_tool/spreadsheet_warmup.py", line 718, in _warm_feature_flows
+  File "/tmp/tmp.QlpUkOUI9D/artifact_tool_v2-2.8.66/artifact_tool/spreadsheet_warmup.py", line 509, in _warm_drawing_and_image_flows
+  File "/tmp/tmp.QlpUkOUI9D/artifact_tool_v2-2.8.66/artifact_tool/generated/interface/models.py", line 32861, in bring_to_front
+  File "/tmp/tmp.QlpUkOUI9D/artifact_tool_v2-2.8.66/artifact_tool/rpc/remote.py", line 764, in __call__
+  File "/tmp/tmp.QlpUkOUI9D/artifact_tool_v2-2.8.66/artifact_tool/rpc/client.py", line 175, in call
+artifact_tool.rpc.client.RemoteError: Element ordering requires an owning element collection.
+2026-11-01 12:35:38,971 INFO Run 59b35cab-be69-45f5-a99f-88df52885dd5 completed: {'run_id': '59b35cab-be69-45f5-a99f-88df52885dd5', 'status': 'SUCCESS', 'input_rows': 103, 'valid_rows': 102, 'rejected_rows': 1, 'master_rows': 100, 'exact_merged_rows': 2, 'review_pairs': 17, 'lineage_rows': 102, 'duration_seconds': 0.041478, 'schema_unexpected_columns': [], 'checks': {'input_equals_valid_plus_rejected': True, 'valid_equals_lineage': True, 'master_ids_unique': True, 'all_passed': True}}
+
+TEST EXIT CODE: 1
+TEST STDOUT:
+[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31mF[0m[31mF[0m[31m                                                                [100%][0m
+=================================== FAILURES ===================================
+[31m[1m_________________ test_unexpected_schema_missing_column_fails __________________[0m
+
+tmp_path = PosixPath('/tmp/pytest-of-oai/pytest-0/test_unexpected_schema_missing0')
+
+    [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_unexpected_schema_missing_column_fails[39;49;00m(tmp_path):[90m[39;49;00m
+        source = tmp_path / [33m"[39;49;00m[33mbad_schema.csv[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+        headers = [x [94mfor[39;49;00m x [95min[39;49;00m FIELDS [94mif[39;49;00m x != [33m"[39;49;00m[33memail[39;49;00m[33m"[39;49;00m][90m[39;49;00m
+>       write_input(source, [record([33m"[39;49;00m[33mX1[39;49;00m[33m"[39;49;00m)], headers)[90m[39;49;00m
+
+[1m[31mtests/test_pipeline.py[0m:94: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+[1m[31mtests/test_pipeline.py[0m:13: in write_input
+    [0mwriter.writerows(rows)[90m[39;49;00m
+[1m[31m/usr/lib/python3.13/csv.py[0m:229: in writerows
+    [0m[94mreturn[39;49;00m [96mself[39;49;00m.writer.writerows([96mmap[39;49;00m([96mself[39;49;00m._dict_to_list, rowdicts))[90m[39;49;00m
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <csv.DictWriter object at 0x7f26570e94c0>
+rowdict = {'address': 'MG Road', 'city': 'Pune', 'created_at': '2025-01-01T00:00:00+00:00', 'email': '', ...}
+
+    [0m[94mdef[39;49;00m[90m [39;49;00m[92m_dict_to_list[39;49;00m([96mself[39;49;00m, rowdict):[90m[39;49;00m
+        [94mif[39;49;00m [96mself[39;49;00m.extrasaction == [33m"[39;49;00m[33mraise[39;49;00m[33m"[39;49;00m:[90m[39;49;00m
+            wrong_fields = rowdict.keys() - [96mself[39;49;00m.fieldnames[90m[39;49;00m
+            [94mif[39;49;00m wrong_fields:[90m[39;49;00m
+>               [94mraise[39;49;00m [96mValueError[39;49;00m([33m"[39;49;00m[33mdict contains fields not in fieldnames: [39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                                 + [33m"[39;49;00m[33m, [39;49;00m[33m"[39;49;00m.join([[96mrepr[39;49;00m(x) [94mfor[39;49;00m x [95min[39;49;00m wrong_fields]))[90m[39;49;00m
+[1m[31mE               ValueError: dict contains fields not in fieldnames: 'email'[0m
+
+[1m[31m/usr/lib/python3.13/csv.py[0m:221: ValueError
+[31m[1m_____________________ test_rerun_is_idempotent_for_outputs _____________________[0m
+
+tmp_path = PosixPath('/tmp/pytest-of-oai/pytest-0/test_rerun_is_idempotent_for_o0')
+
+    [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_rerun_is_idempotent_for_outputs[39;49;00m(tmp_path):[90m[39;49;00m
+        rows = [record([33m"[39;49;00m[33mR1[39;49;00m[33m"[39;49;00m, email=[33m"[39;49;00m[33mr@example.com[39;49;00m[33m"[39;49;00m), record([33m"[39;49;00m[33mR2[39;49;00m[33m"[39;49;00m, email=[33m"[39;49;00m[33mr@example.com[39;49;00m[33m"[39;49;00m)][90m[39;49;00m
+        source = tmp_path / [33m"[39;49;00m[33msame.csv[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+        write_input(source, rows)[90m[39;49;00m
+        db, out = tmp_path / [33m"[39;49;00m[33mdb.sqlite[39;49;00m[33m"[39;49;00m, tmp_path / [33m"[39;49;00m[33mout[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+        first = run_pipeline(source, db, out)[90m[39;49;00m
+        first_output = (out / [33m"[39;49;00m[33mmaster_customers.csv[39;49;00m[33m"[39;49;00m).read_text()[90m[39;49;00m
+>       second = run_pipeline(source, db, out)[90m[39;49;00m
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+
+[1m[31mtests/test_pipeline.py[0m:105: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+input_path = PosixPath('/tmp/pytest-of-oai/pytest-0/test_rerun_is_idempotent_for_o0/same.csv')
+db_path = PosixPath('/tmp/pytest-of-oai/pytest-0/test_rerun_is_idempotent_for_o0/db.sqlite')
+output_dir = PosixPath('/tmp/pytest-of-oai/pytest-0/test_rerun_is_idempotent_for_o0/out')
+
+    [0m[94mdef[39;49;00m[90m [39;49;00m[92mrun_pipeline[39;49;00m(input_path, db_path=[33m"[39;49;00m[33mdata/output/dedup.db[39;49;00m[33m"[39;49;00m, output_dir=[33m"[39;49;00m[33mdata/output[39;49;00m[33m"[39;49;00m):[90m[39;49;00m
+        start_clock = time.perf_counter()[90m[39;49;00m
+        run_id = [96mstr[39;49;00m(uuid.uuid4())[90m[39;49;00m
+        started_at = now_iso()[90m[39;49;00m
+        input_path, db_path, output_dir = Path(input_path), Path(db_path), Path(output_dir)[90m[39;49;00m
+        output_dir.mkdir(parents=[94mTrue[39;49;00m, exist_ok=[94mTrue[39;49;00m)[90m[39;49;00m
+        db_path.parent.mkdir(parents=[94mTrue[39;49;00m, exist_ok=[94mTrue[39;49;00m)[90m[39;49;00m
+        con = connect_db(db_path)[90m[39;49;00m
+    [90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            [94mif[39;49;00m [95mnot[39;49;00m input_path.exists():[90m[39;49;00m
+                [94mraise[39;49;00m [96mFileNotFoundError[39;49;00m([33mf[39;49;00m[33m"[39;49;00m[33mInput file not found: [39;49;00m[33m{[39;49;00minput_path[33m}[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+    [90m[39;49;00m
+            [94mwith[39;49;00m input_path.open([33m"[39;49;00m[33mr[39;49;00m[33m"[39;49;00m, newline=[33m"[39;49;00m[33m"[39;49;00m, encoding=[33m"[39;49;00m[33mutf-8-sig[39;49;00m[33m"[39;49;00m) [94mas[39;49;00m f:[90m[39;49;00m
+                reader = csv.DictReader(f)[90m[39;49;00m
+                [94mif[39;49;00m reader.fieldnames [95mis[39;49;00m [94mNone[39;49;00m:[90m[39;49;00m
+                    [94mraise[39;49;00m [96mValueError[39;49;00m([33m"[39;49;00m[33mInput CSV has no header[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+                missing_columns = [96msorted[39;49;00m([96mset[39;49;00m(FIELDS) - [96mset[39;49;00m(reader.fieldnames))[90m[39;49;00m
+                unexpected_columns = [96msorted[39;49;00m([96mset[39;49;00m(reader.fieldnames) - [96mset[39;49;00m(FIELDS))[90m[39;49;00m
+                [94mif[39;49;00m missing_columns:[90m[39;49;00m
+                    [94mraise[39;49;00m [96mValueError[39;49;00m([33m"[39;49;00m[33mUnexpected schema: missing columns [39;49;00m[33m"[39;49;00m + [33m"[39;49;00m[33m, [39;49;00m[33m"[39;49;00m.join(missing_columns))[90m[39;49;00m
+                raw_rows = [96mlist[39;49;00m(reader)[90m[39;49;00m
+    [90m[39;49;00m
+            valid, rejects, seen_ids = [], [], [96mset[39;49;00m()[90m[39;49;00m
+            [94mfor[39;49;00m row_number, raw [95min[39;49;00m [96menumerate[39;49;00m(raw_rows, start=[94m2[39;49;00m):[90m[39;49;00m
+                row = {field: (raw.get(field) [95mor[39;49;00m [33m"[39;49;00m[33m"[39;49;00m).strip() [94mfor[39;49;00m field [95min[39;49;00m FIELDS}[90m[39;49;00m
+                reasons = validate_row(row)[90m[39;49;00m
+                sid = row.get([33m"[39;49;00m[33msource_record_id[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+                [94mif[39;49;00m sid [95mand[39;49;00m sid [95min[39;49;00m seen_ids:[90m[39;49;00m
+                    reasons.append([33m"[39;49;00m[33mduplicate_source_record_id[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+                [94mif[39;49;00m sid:[90m[39;49;00m
+                    seen_ids.add(sid)[90m[39;49;00m
+                [94mif[39;49;00m reasons:[90m[39;49;00m
+                    rejects.append({[90m[39;49;00m
+                        [33m"[39;49;00m[33msource_file[39;49;00m[33m"[39;49;00m: [96mstr[39;49;00m(input_path), [33m"[39;49;00m[33msource_row[39;49;00m[33m"[39;49;00m: row_number,[90m[39;49;00m
+                        [33m"[39;49;00m[33msource_record_id[39;49;00m[33m"[39;49;00m: sid, [33m"[39;49;00m[33mraw_json[39;49;00m[33m"[39;49;00m: json.dumps(raw),[90m[39;49;00m
+                        [33m"[39;49;00m[33mreject_reason[39;49;00m[33m"[39;49;00m: [33m"[39;49;00m[33m|[39;49;00m[33m"[39;49;00m.join(reasons)[90m[39;49;00m
+                    })[90m[39;49;00m
+                [94melse[39;49;00m:[90m[39;49;00m
+                    valid.append(row)[90m[39;49;00m
+    [90m[39;49;00m
+            groups = exact_clusters(valid)[90m[39;49;00m
+            masters, lineage = [], [][90m[39;49;00m
+            [94mfor[39;49;00m group [95min[39;49;00m groups:[90m[39;49;00m
+                merged, survivor_id = merge_cluster(group)[90m[39;49;00m
+                mid = deterministic_master_id(group)[90m[39;49;00m
+                masters.append({[90m[39;49;00m
+                    [33m"[39;49;00m[33mmaster_customer_id[39;49;00m[33m"[39;49;00m: mid,[90m[39;49;00m
+                    **{k: merged.get(k, [33m"[39;49;00m[33m"[39;49;00m) [94mfor[39;49;00m k [95min[39;49;00m BUSINESS_FIELDS + [[33m"[39;49;00m[33mcreated_at[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33mupdated_at[39;49;00m[33m"[39;49;00m]},[90m[39;49;00m
+                    [33m"[39;49;00m[33msurvivor_source_record_id[39;49;00m[33m"[39;49;00m: survivor_id[90m[39;49;00m
+                })[90m[39;49;00m
+                [94mfor[39;49;00m row [95min[39;49;00m group:[90m[39;49;00m
+                    lineage.append({[90m[39;49;00m
+                        [33m"[39;49;00m[33msource_record_id[39;49;00m[33m"[39;49;00m: row[[33m"[39;49;00m[33msource_record_id[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
+                        [33m"[39;49;00m[33mmaster_customer_id[39;49;00m[33m"[39;49;00m: mid[90m[39;49;00m
+                    })[90m[39;49;00m
+    [90m[39;49;00m
+            review_pairs = fuzzy_review_pairs(valid, groups)[90m[39;49;00m
+            duration = [96mround[39;49;00m(time.perf_counter() - start_clock, [94m6[39;49;00m)[90m[39;49;00m
+            ended_at = now_iso()[90m[39;49;00m
+            exact_merged = [96mlen[39;49;00m(valid) - [96mlen[39;49;00m(masters)[90m[39;49;00m
+    [90m[39;49;00m
+            [90m# Replace snapshot tables atomically; run history is retained.[39;49;00m[90m[39;49;00m
+            [94mwith[39;49;00m con:[90m[39;49;00m
+                con.execute([90m[39;49;00m
+    [90m                [39;49;00m[33m"""INSERT INTO pipeline_runs[39;49;00m
+    [33m                (run_id,input_file,status,started_at,ended_at,input_rows,valid_rows,[39;49;00m
+    [33m                 rejected_rows,master_rows,exact_merged_rows,review_pairs,duration_seconds)[39;49;00m
+    [33m                VALUES(?,?,?,?,?,?,?,?,?,?,?,?)"""[39;49;00m,[90m[39;49;00m
+                    (run_id, [96mstr[39;49;00m(input_path), [33m"[39;49;00m[33mSUCCESS[39;49;00m[33m"[39;49;00m, started_at, ended_at,[90m[39;49;00m
+                     [96mlen[39;49;00m(raw_rows), [96mlen[39;49;00m(valid), [96mlen[39;49;00m(rejects), [96mlen[39;49;00m(masters),[90m[39;49;00m
+                     exact_merged, [96mlen[39;49;00m(review_pairs), duration)[90m[39;49;00m
+                )[90m[39;49;00m
+                [94mfor[39;49;00m table [95min[39;49;00m ([33m"[39;49;00m[33msource_records[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33mmaster_customers[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33mcustomer_lineage[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+                              [33m"[39;49;00m[33mduplicate_review_queue[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33mrejected_records[39;49;00m[33m"[39;49;00m):[90m[39;49;00m
+>                   con.execute([33mf[39;49;00m[33m"[39;49;00m[33mDELETE FROM [39;49;00m[33m{[39;49;00mtable[33m}[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+[1m[31mE                   sqlite3.IntegrityError: FOREIGN KEY constraint failed[0m
+
+[1m[31msrc/pipeline.py[0m:330: IntegrityError
+------------------------------ Captured log call -------------------------------
+[1m[31mERROR   [0m customer_dedup:pipeline.py:410 Pipeline failed; run_id=c4dfca3d-97a9-457a-b619-159090ba9ce2
+Traceback (most recent call last):
+  File "/mnt/data/customer_dedup_pipeline/src/pipeline.py", line 330, in run_pipeline
+    con.execute(f"DELETE FROM {table}")
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.IntegrityError: FOREIGN KEY constraint failed
+[36m[1m=========================== short test summary info ============================[0m
+[31mFAILED[0m tests/test_pipeline.py::[1mtest_unexpected_schema_missing_column_fails[0m - ValueError: dict contains fields not in fieldnames: 'email'
+[31mFAILED[0m tests/test_pipeline.py::[1mtest_rerun_is_idempotent_for_outputs[0m - sqlite3.IntegrityError: FOREIGN KEY constraint failed
+[31m[31m[1m2 failed[0m, [32m7 passed[0m[31m in 0.22s[0m[0m
+
+TEST STDERR:
+Spreadsheet runtime warmup failed during python startup
+Traceback (most recent call last):
+  File "/tmp/tmp.QlpUkOUI9D/artifact_tool_v2-2.8.66/artifact_tool/patches/warm_spreadsheet_runtime_on_startup.py", line 26, in warm_spreadsheet_runtime_on_startup
+  File "/tmp/tmp.QlpUkOUI9D/artifact_tool_v2-2.8.66/artifact_tool/spreadsheet_warmup.py", line 785, in warm_spreadsheet_runtime
+  File "/tmp/tmp.QlpUkOUI9D/artifact_tool_v2-2.8.66/artifact_tool/spreadsheet_warmup.py", line 718, in _warm_feature_flows
+  File "/tmp/tmp.QlpUkOUI9D/artifact_tool_v2-2.8.66/artifact_tool/spreadsheet_warmup.py", line 509, in _warm_drawing_and_image_flows
+  File "/tmp/tmp.QlpUkOUI9D/artifact_tool_v2-2.8.66/artifact_tool/generated/interface/models.py", line 32861, in bring_to_front
+  File "/tmp/tmp.QlpUkOUI9D/artifact_tool_v2-2.8.66/artifact_tool/rpc/remote.py", line 764, in __call__
+  File "/tmp/tmp.QlpUkOUI9D/artifact_tool_v2-2.8.66/artifact_tool/rpc/client.py", line 175, in call
+artifact_tool.rpc.client.RemoteError: Element ordering requires an owning element collection.

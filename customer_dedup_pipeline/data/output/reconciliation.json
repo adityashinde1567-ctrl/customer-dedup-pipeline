@@ -1,0 +1,19 @@
+{
+  "run_id": "59b35cab-be69-45f5-a99f-88df52885dd5",
+  "status": "SUCCESS",
+  "input_rows": 103,
+  "valid_rows": 102,
+  "rejected_rows": 1,
+  "master_rows": 100,
+  "exact_merged_rows": 2,
+  "review_pairs": 17,
+  "lineage_rows": 102,
+  "duration_seconds": 0.041478,
+  "schema_unexpected_columns": [],
+  "checks": {
+    "input_equals_valid_plus_rejected": true,
+    "valid_equals_lineage": true,
+    "master_ids_unique": true,
+    "all_passed": true
+  }
+}

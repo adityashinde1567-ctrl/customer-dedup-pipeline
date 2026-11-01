@@ -1,0 +1,2 @@
+source_file,source_row,source_record_id,raw_json,reject_reason
+/mnt/data/customer_dedup_pipeline/data/input/customers.csv,104,BAD000001,"{""source_record_id"": ""BAD000001"", ""source_system"": ""web"", ""first_name"": """", ""last_name"": ""Missing"", ""email"": ""bad-email"", ""phone"": ""123"", ""address"": """", ""city"": """", ""postal_code"": """", ""created_at"": """", ""updated_at"": ""not-a-date""}",missing_required:first_name|invalid_timestamp:updated_at|invalid_email|invalid_phone
